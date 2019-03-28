@@ -1,8 +1,8 @@
 /target/*
-.mvn/*
-.settings/*
-.classpath
-.project
+/.mvn/*
+/.settings/*
+/.classpath
+/.project
 
 
 /target/
