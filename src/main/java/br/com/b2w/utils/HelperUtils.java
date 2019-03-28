@@ -17,9 +17,7 @@ public class HelperUtils {
 		Date parsedDate = null;
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy");
-			Date date = new Date();
-			String formattedDate = formatter.format(date);
-			parsedDate = formatter.parse(formattedDate);
+			parsedDate = formatter.parse(dataStr);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

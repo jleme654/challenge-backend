@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 import br.com.b2w.consumer.EndpointConsumer;
 import br.com.b2w.utils.HelperUtils;
 import br.com.b2w.vo.ItemVO;
-import br.com.b2w.vo.ItemsVO;
 
 /**
  * 
@@ -47,34 +46,29 @@ public class B2WController {
 		
 		String jsonString = this.serviceApp.getItemsByEndpoint();
 		
-		logger.info("--- JSON ORIGINAL: " + jsonString);
-		
 		Gson gson = new Gson();
 		ItemVO[] itemsoriginal = gson.fromJson(jsonString, ItemVO[].class);
 		List<ItemVO> listaItemsOriginals = Arrays.asList(itemsoriginal);
+		List<ItemVO> listaitemnovo = new ArrayList<>();
 		
-		logger.info("--- ITEMS VO BEAN: " + jsonString);
-    	
-		ArrayList<ItemVO> listaitemnovo = new ArrayList<>();
+		logger.info("--- LISTA ITEMS ORIGINAL: " + listaItemsOriginals);
 		
 		Date databegin = HelperUtils.convertStringtoDate(begindate);
 		Date datafinal = HelperUtils.convertStringtoDate(finaldate);
 		
+		logger.info("--- datas: databegin: "+databegin + " datafinal: " + datafinal );
 		for (ItemVO item : listaItemsOriginals) {
 			String dataitem = item.getDate();
+			logger.info("--- datas: dataitem: " + dataitem);
 			dataitem = HelperUtils.treatmentDate(dataitem);
 			Date dataitemconvert = HelperUtils.convertStringtoDate(dataitem);
 			if(dataitemconvert.after(databegin) && dataitemconvert.before(datafinal))
 				listaitemnovo.add(item);
 		}
-		ItemsVO resultItems = new ItemsVO();
-		
-		ItemVO[] items = listaitemnovo.toArray(new ItemVO[0]);
-		resultItems.setItems(items );
+		logger.info("--- lista result: " + listaitemnovo.toString());
 	
 		HttpStatus status = HttpStatus.ACCEPTED;
 		return new ResponseEntity<List<ItemVO>>(listaitemnovo, status);
-		//return resultItems;
 	}
 	
 }
