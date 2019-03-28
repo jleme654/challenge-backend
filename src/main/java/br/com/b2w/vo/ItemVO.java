@@ -1,5 +1,7 @@
 package br.com.b2w.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 
  * @author julio
@@ -7,6 +9,7 @@ package br.com.b2w.vo;
  * @version 1.0.0
  * 
  */
+@JsonIgnoreProperties
 public class ItemVO {
 	private String name;// ": "Impressora",
 	private int code;// ": "5",

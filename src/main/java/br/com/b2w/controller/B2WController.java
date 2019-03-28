@@ -2,14 +2,15 @@ package br.com.b2w.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.google.gson.Gson;
 
 import br.com.b2w.consumer.EndpointConsumer;
 import br.com.b2w.utils.HelperUtils;
@@ -37,13 +38,12 @@ public class B2WController {
 	}
 	
 	@RequestMapping("/challenge-backend/item")
-	public String getItemsByRangeDatas(@RequestParam("begindate") String begindate,
+	public ResponseEntity<List<ItemVO>>  getItemsByRangeDatas(@RequestParam("begindate") String begindate,
 			                       @RequestParam("finaldate") String finaldate) {
 		logger.info("--- solucao challenge-bakend ---");
 		
 		ItemsVO itemsoriginal = this.serviceApp.getItemsByEndpoint();
-		ItemsVO itemsnovo = new ItemsVO();
-		ArrayList<ItemVO> listaitemnovo = new ArrayList<>();
+    	ArrayList<ItemVO> listaitemnovo = new ArrayList<>();
 		
 		Date databegin = HelperUtils.convertStringtoDate(begindate);
 		Date datafinal = HelperUtils.convertStringtoDate(finaldate);
@@ -55,11 +55,8 @@ public class B2WController {
 			if(dataitemconvert.after(databegin) && dataitemconvert.before(datafinal))
 				listaitemnovo.add(item);
 		}
-		itemsnovo.setItems(listaitemnovo);
-		
-		Gson g = new Gson(); 
-		String itemsnovojson = g.toJson(ItemsVO.class);
-		return itemsnovojson;
+		HttpStatus status = HttpStatus.ACCEPTED;
+		return new ResponseEntity<List<ItemVO>>(listaitemnovo, status);
 	}
 	
 }
