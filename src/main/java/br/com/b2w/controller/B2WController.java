@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+
 import br.com.b2w.consumer.EndpointConsumer;
 import br.com.b2w.utils.HelperUtils;
 import br.com.b2w.vo.ItemVO;
 import br.com.b2w.vo.ItemsVO;
+
 /**
  * 
  * @author julio
@@ -21,9 +24,9 @@ import br.com.b2w.vo.ItemsVO;
  * 
  */
 @RestController
-public class Controller {
+public class B2WController {
 
-	private static final Logger logger = Logger.getLogger(Controller.class.getName());
+	private static final Logger logger = Logger.getLogger(B2WController.class.getName());
 	
 	@Autowired
 	EndpointConsumer serviceApp;
@@ -33,8 +36,8 @@ public class Controller {
 		return "Greetings from Spring Boot!";
 	}
 	
-	@RequestMapping("/challenge-backend")
-	public ItemsVO findByDescricao(@RequestParam("begindate") String begindate,
+	@RequestMapping("/challenge-backend/item")
+	public String getItemsByRangeDatas(@RequestParam("begindate") String begindate,
 			                       @RequestParam("finaldate") String finaldate) {
 		logger.info("--- solucao challenge-bakend ---");
 		
@@ -53,7 +56,10 @@ public class Controller {
 				listaitemnovo.add(item);
 		}
 		itemsnovo.setItems(listaitemnovo);
-		return itemsnovo;
+		
+		Gson g = new Gson(); 
+		String itemsnovojson = g.toJson(ItemsVO.class);
+		return itemsnovojson;
 	}
 	
 }

@@ -1,6 +1,6 @@
 package br.com.b2w.consumer;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.b2w.vo.ItemsVO;
@@ -11,7 +11,7 @@ import br.com.b2w.vo.ItemsVO;
  * @version 1.0.0
  * 
  */
-@Component
+@Service
 public class EndpointConsumer {
 
 	public ItemsVO getItemsByEndpoint() {

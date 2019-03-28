@@ -4,6 +4,13 @@ import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+/**
+ * 
+ * @author julio
+ * @since 2019-03-26
+ * @version 1.0.0
+ * 
+ */
 public class HelperUtils {
 
 	public static Date convertStringtoDate(String dataStr) {
@@ -29,8 +36,4 @@ public class HelperUtils {
 	    return sb.toString();
 	}
 	
-	/*public static void main(String[] args) {
-		System.out.println(treatmentDate("2019-10-05"));
-	}*/
-
 }
