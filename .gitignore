@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 .classpath
 
+=======
+/mvn/*
+>>>>>>> 136302cf714971c5f8cf45255cb948090bacacdf
 /target/
-/.classpath
+.classpath
 .project
 .settings/*
 
