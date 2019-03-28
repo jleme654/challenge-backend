@@ -1,6 +1,6 @@
 /mvn/*
 /target/
-/.classpath
+.classpath
 .project
 .settings/*
 
