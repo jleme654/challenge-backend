@@ -1,5 +1,7 @@
 #gitignore julio
 /target/*
+.mvn/wrapper/*
+
 CONTRIBUTING.adoc
 LICENSE.code.txt
 LICENSE.writting.txt
