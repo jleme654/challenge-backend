@@ -1,6 +1,7 @@
 package br.com.b2w.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -40,7 +41,7 @@ public class B2WController {
 	}
 	
 	@RequestMapping("/challenge-backend/item")
-	public ResponseEntity<List<ItemVO>>  getItemsByRangeDatas(@RequestParam("begindate") String begindate,
+	public ResponseEntity<List<ItemVO>> getItemsByRangeDatas(@RequestParam("begindate") String begindate,
 			                       @RequestParam("finaldate") String finaldate) {
 		logger.info("--- solucao challenge-bakend ---");
 		
@@ -48,24 +49,32 @@ public class B2WController {
 		
 		logger.info("--- JSON ORIGINAL: " + jsonString);
 		
-		
 		Gson gson = new Gson();
-		ItemsVO itemsoriginal = gson.fromJson(jsonString, ItemsVO.class);
+		ItemVO[] itemsoriginal = gson.fromJson(jsonString, ItemVO[].class);
+		List<ItemVO> listaItemsOriginals = Arrays.asList(itemsoriginal);
+		
+		logger.info("--- ITEMS VO BEAN: " + jsonString);
     	
 		ArrayList<ItemVO> listaitemnovo = new ArrayList<>();
 		
 		Date databegin = HelperUtils.convertStringtoDate(begindate);
 		Date datafinal = HelperUtils.convertStringtoDate(finaldate);
 		
-		for (ItemVO item : itemsoriginal.getItems()) {
+		for (ItemVO item : listaItemsOriginals) {
 			String dataitem = item.getDate();
 			dataitem = HelperUtils.treatmentDate(dataitem);
 			Date dataitemconvert = HelperUtils.convertStringtoDate(dataitem);
 			if(dataitemconvert.after(databegin) && dataitemconvert.before(datafinal))
 				listaitemnovo.add(item);
 		}
+		ItemsVO resultItems = new ItemsVO();
+		
+		ItemVO[] items = listaitemnovo.toArray(new ItemVO[0]);
+		resultItems.setItems(items );
+	
 		HttpStatus status = HttpStatus.ACCEPTED;
 		return new ResponseEntity<List<ItemVO>>(listaitemnovo, status);
+		//return resultItems;
 	}
 	
 }

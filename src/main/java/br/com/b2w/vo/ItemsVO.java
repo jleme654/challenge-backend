@@ -1,7 +1,5 @@
 package br.com.b2w.vo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * 
  * @author julio
@@ -11,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ItemsVO {
 
-	@JsonProperty("") 
 	private ItemVO[] items;
 
 	public ItemVO[] getItems() {
