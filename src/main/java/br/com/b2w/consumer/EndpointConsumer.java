@@ -2,8 +2,6 @@ package br.com.b2w.consumer;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import br.com.b2w.vo.ItemsVO;
 /**
  * 
  * @author julio
@@ -14,9 +12,9 @@ import br.com.b2w.vo.ItemsVO;
 @Service
 public class EndpointConsumer {
 
-	public ItemsVO getItemsByEndpoint() {
+	public String getItemsByEndpoint() {
 		RestTemplate template = new RestTemplate();
-		return template.getForObject("http://www.mocky.io/v2/5817803a1000007d01cc7fc9", ItemsVO.class);
+		return template.getForObject("http://www.mocky.io/v2/5817803a1000007d01cc7fc9", String.class);
 	}
 
 }

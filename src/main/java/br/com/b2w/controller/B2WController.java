@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+
 import br.com.b2w.consumer.EndpointConsumer;
 import br.com.b2w.utils.HelperUtils;
 import br.com.b2w.vo.ItemVO;
@@ -42,8 +44,15 @@ public class B2WController {
 			                       @RequestParam("finaldate") String finaldate) {
 		logger.info("--- solucao challenge-bakend ---");
 		
-		ItemsVO itemsoriginal = this.serviceApp.getItemsByEndpoint();
-    	ArrayList<ItemVO> listaitemnovo = new ArrayList<>();
+		String jsonString = this.serviceApp.getItemsByEndpoint();
+		
+		logger.info("--- JSON ORIGINAL: " + jsonString);
+		
+		
+		Gson gson = new Gson();
+		ItemsVO itemsoriginal = gson.fromJson(jsonString, ItemsVO.class);
+    	
+		ArrayList<ItemVO> listaitemnovo = new ArrayList<>();
 		
 		Date databegin = HelperUtils.convertStringtoDate(begindate);
 		Date datafinal = HelperUtils.convertStringtoDate(finaldate);
